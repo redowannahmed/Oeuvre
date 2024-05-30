@@ -44,7 +44,7 @@ public class BookDatabase {
         for (Book book: bookDatabase) {
             System.out.println(book.getTitle());
             System.out.println(book.getAuthor());
-            System.out.println(book.getPublishers());
+            System.out.println(book.getPublisher());
             System.out.println(book.getPages());
             System.out.println(book.getGenre());
             System.out.println(book.getSynopsis());
