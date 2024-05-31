@@ -2,14 +2,12 @@ import java.util.*;
 
 public class User {
     private String username;
-    private int userID;
     private String password;
     private List<Book> readBooks;
     private List<Book> wishToReadBooks;
     private List<Book> favoriteBooks;
 
-    public User(String username, String password, int userID) {
-        this.userID = userID;
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
         this.readBooks = new ArrayList<>();
@@ -19,10 +17,6 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public int getUserID () {
-        return userID;
     }
 
     public String getPassword() {
