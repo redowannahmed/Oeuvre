@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class AccountCreationPage extends JFrame {
@@ -26,7 +25,7 @@ public class AccountCreationPage extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     addInfo();
-                } catch (InvalidPasswordException | UsernameAlreadyExistsException e) {
+                } catch (InvalidAccountCreationCharacterException | UsernameAlreadyExistsException e) {
                     e.getMessage();
                 }
                 dispose();
@@ -36,7 +35,7 @@ public class AccountCreationPage extends JFrame {
         });
     }
 
-    public void addInfo() throws UsernameAlreadyExistsException, InvalidPasswordException {
+    public void addInfo() throws UsernameAlreadyExistsException, InvalidAccountCreationCharacterException {
         String username = usernameTextField.getText();
         char[] passwordCharArray = passwordField.getPassword();
         String password = new String(passwordCharArray);
@@ -57,9 +56,14 @@ public class AccountCreationPage extends JFrame {
             e.getMessage();
         }
 
+        if (username.contains(";")){
+            JOptionPane.showMessageDialog(this, "Semi-colons (;) are not a valid character for usernames! Try again.");
+            throw new InvalidAccountCreationCharacterException("Semi-colons (;) are not a valid character for usernames!");
+        }
+
         if (password.contains(";")) {
             JOptionPane.showMessageDialog(this, "Semi-colons (;) are not a valid character for passwords! Try again.");
-            throw new InvalidPasswordException("Semi-colons (;) are not a valid character for passwords!");
+            throw new InvalidAccountCreationCharacterException("Semi-colons (;) are not a valid character for passwords!");
         } else {
             try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("users.txt", true)))) {
                 writer.println(username + ";" + password);
