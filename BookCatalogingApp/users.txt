@@ -1,2 +1,2 @@
-user1;101;password12
+user1;password12
 
