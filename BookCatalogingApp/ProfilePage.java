@@ -73,7 +73,9 @@ public class ProfilePage extends JFrame {
                 String[] data = line.split(";");
                 if (data.length == 2) {
                     String title = data[1];
+                    if (data[0].equals(username)){
                     bookList.append(title).append("\n");
+                    }
                 }
             }
             JOptionPane.showMessageDialog(null, bookList, "Already Read Books for" + username, JOptionPane.PLAIN_MESSAGE);
@@ -90,7 +92,9 @@ public class ProfilePage extends JFrame {
                 String[] data = line.split(";");
                 if (data.length == 2) {
                     String title = data[1];
+                    if(data[0].equals(username)){
                     bookList.append(title).append("\n");
+                    }
                 }
             }
             JOptionPane.showMessageDialog(null, bookList, username + " wants to read the following books", JOptionPane.PLAIN_MESSAGE);
@@ -106,8 +110,11 @@ public class ProfilePage extends JFrame {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
                 if (data.length == 2) {
+                    String userName = data[0];
                     String title = data[1];
+                    if (userName.equals(username)) {
                     bookList.append(title).append("\n");
+                    }
                 }
             }
             JOptionPane.showMessageDialog(null, bookList, "Favorite Books for " + username, JOptionPane.PLAIN_MESSAGE);
