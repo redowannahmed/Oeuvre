@@ -1,13 +1,14 @@
 public class Book {
     private String title;
     private String author;
-    private Genre genre;
+    private String genre;
     private String publisher;
     private String edition;
     private int pages;
     private String synopsis;
+    private String thumbnailPath;
 
-    public Book (String title, String author, Genre genre, String publisher, String edition, int pages, String synopsis) {
+    public Book (String title, String author, String genre, String publisher, String edition, int pages, String synopsis, String thumbnailPath) {
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -15,6 +16,7 @@ public class Book {
         this.edition = edition;
         this.pages = pages;
         this.synopsis = synopsis;
+        this.thumbnailPath = thumbnailPath;
     }
 
     public String getTitle () {
@@ -25,11 +27,11 @@ public class Book {
         return author;
     }
 
-    public Genre getGenre () {
+    public String getGenre () {
         return genre;
     }
 
-    public String getPublisher() {
+    public String getPublisher () {
         return publisher;
     }
 
@@ -43,5 +45,9 @@ public class Book {
 
     public String getSynopsis () {
         return synopsis;
+    }
+
+    public String getThumbnailPath () {
+        return thumbnailPath;
     }
 }
