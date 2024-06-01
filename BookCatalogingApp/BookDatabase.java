@@ -10,16 +10,17 @@ public class BookDatabase {
             String line;
             while ((line = br.readLine()) !=null) {
                 String [] data = line.split(";");
-                if (data.length == 7) {
+                if (data.length == 8) {
                     String title = data[0];
                     String author = data[1];
-                    Genre genre = Genre.FICTION;
+                    String genre = data[2];
                     String publishers = data[3];
                     String edition = data[4];
                     int pages = Integer.parseInt(data[5]);
                     String synopsis = data[6];
+                    String thumbnailPath = data[7];
 
-                    Book book = new Book(title, author, genre, publishers, edition, pages, synopsis);
+                    Book book = new Book(title, author, genre, publishers, edition, pages, synopsis, thumbnailPath);
                     bookDatabase.add(book);
                 }
             }
@@ -30,6 +31,15 @@ public class BookDatabase {
 
     public List<Book> getBookDatabase () {
         return bookDatabase;
+    }
+
+    public Book getBookByTitle (String title) {
+        for (Book book: bookDatabase) {
+            if (book.getTitle().equals(title)) {
+                return book;
+            }
+        }
+        return null;
     }
 
     public void addBookToTheDataBase (Book book) {
