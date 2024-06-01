@@ -14,6 +14,23 @@ public class AccountCreationPage extends JFrame {
     private JPasswordField passwordField;
 
     public AccountCreationPage() {
+        panel = new JPanel();
+        usernameTextField = new JTextField(20);
+        passwordField = new JPasswordField(20);
+        createAccountButton = new JButton("Create Account");
+        headLabel = new JLabel("Create an Account");
+        usernameLabel = new JLabel("Username:");
+        passwordLabel = new JLabel("Password:");
+
+        // Set layout and add components to the panel
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(headLabel);
+        panel.add(usernameLabel);
+        panel.add(usernameTextField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(createAccountButton);
+
         setContentPane(panel);
         setTitle("Account Creation");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -25,12 +42,11 @@ public class AccountCreationPage extends JFrame {
             public void actionPerformed(ActionEvent actionEvent) {
                 try {
                     addInfo();
+                    dispose();
+                    new LoginPage();
                 } catch (InvalidAccountCreationCharacterException | UsernameAlreadyExistsException e) {
-                    e.getMessage();
+                    JOptionPane.showMessageDialog(AccountCreationPage.this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                dispose();
-                LoginPage loginPage = new LoginPage();
-
             }
         });
     }
@@ -40,40 +56,33 @@ public class AccountCreationPage extends JFrame {
         char[] passwordCharArray = passwordField.getPassword();
         String password = new String(passwordCharArray);
         File file = new File("users.txt");
+        
         try (Scanner dataReader = new Scanner(file)) {
             while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
                 String[] data = line.split(";");
-
                 String fileUsername = data[0];
-                System.out.println(fileUsername);
                 if (fileUsername.equals(username)) {
-                    JOptionPane.showMessageDialog(this, "This username already exists! Try again.");
                     throw new UsernameAlreadyExistsException("This username already exists!");
                 }
             }
         } catch (FileNotFoundException e) {
-            e.getMessage();
-        }
-
-        if (username.contains(";")){
-            JOptionPane.showMessageDialog(this, "Semi-colons (;) are not a valid character for usernames! Try again.");
-            throw new InvalidAccountCreationCharacterException("Semi-colons (;) are not a valid character for usernames!");
+            e.printStackTrace();
         }
 
         if (password.contains(";")) {
-            JOptionPane.showMessageDialog(this, "Semi-colons (;) are not a valid character for passwords! Try again.");
             throw new InvalidAccountCreationCharacterException("Semi-colons (;) are not a valid character for passwords!");
-        } else {
-            try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("users.txt", true)))) {
-                writer.println(username + ";" + password);
-                writer.close();
-                JOptionPane.showMessageDialog(this, "You've successfully created an account!");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+
+        if (username.contains(";")) {
+            throw new InvalidAccountCreationCharacterException("semi-colons (;) are not valid character for usernames");
+        }
+
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
+            writer.println(username + ";" + password);
+            JOptionPane.showMessageDialog(this, "You've successfully created an account!");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
-
 }
