@@ -119,8 +119,4 @@ public class ProfilePage extends JFrame {
     public String getUsername() {
         return username;
     }
-
-    public static void main(String[] args) {
-        new ProfilePage("redowan ahmed");
-    }
 }
