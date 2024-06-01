@@ -167,8 +167,4 @@ public class LandingPage extends JFrame {
     public String getUsername () {
         return username;
     }
-
-    public static void main(String[] args) {
-        new LandingPage("redowan ahmed");
-    }
 }
