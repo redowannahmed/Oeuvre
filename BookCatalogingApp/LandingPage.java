@@ -61,7 +61,7 @@ public class LandingPage extends JFrame {
     }
 
     private void loadBooks() {
-        try (BufferedReader br = new BufferedReader(new FileReader("bookDatabase.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("bookDataBase.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
