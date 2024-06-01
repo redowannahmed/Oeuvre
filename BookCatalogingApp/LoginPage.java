@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,14 +13,27 @@ public class LoginPage extends JFrame {
     private JPanel panel;
     private JPasswordField passwordField;
 
+    public LoginPage() {
+        panel = new JPanel();
+        usernameTextField = new JTextField(20);
+        passwordField = new JPasswordField(20);
+        signInButton = new JButton("Sign In");
+        createAnAccountButton = new JButton("Create an Account");
 
-    public LoginPage(){
+        panel.setLayout(new GridLayout(4, 2));
+        panel.add(new JLabel("Username:"));
+        panel.add(usernameTextField);
+        panel.add(new JLabel("Password:"));
+        panel.add(passwordField);
+        panel.add(signInButton);
+        panel.add(createAnAccountButton);
+
         setContentPane(panel);
         setTitle("Log In");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(640, 480);
+        setLocationRelativeTo(null);
         setVisible(true);
-
 
         signInButton.addActionListener(new ActionListener() {
             @Override
@@ -31,12 +45,13 @@ public class LoginPage extends JFrame {
                 }
             }
         });
+
         createAnAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (actionEvent.getSource()==createAnAccountButton) {
+                if (actionEvent.getSource() == createAnAccountButton) {
                     dispose();
-                    AccountCreationPage accountCreationPage = new AccountCreationPage();
+                    new AccountCreationPage();
                 }
             }
         });
@@ -48,16 +63,18 @@ public class LoginPage extends JFrame {
         String password = new String(passwordArray);
         File file = new File("users.txt");
         boolean loggedIn = false;
+
         try (Scanner dataReader = new Scanner(file)) {
-            while(dataReader.hasNextLine()) {
+            while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
                 String[] data = line.split(";");
                 String fileUsername = data[0];
                 String filePassword = data[1];
+
                 if (fileUsername.equals(username) && filePassword.equals(password)) {
                     JOptionPane.showMessageDialog(this, "You've successfully logged in!");
                     dispose();
-                    LandingPage landingPage = new LandingPage(username);
+                    new LandingPage(username);
                     loggedIn = true;
                     break;
                 }
@@ -65,6 +82,7 @@ public class LoginPage extends JFrame {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
         if (!loggedIn) {
             JOptionPane.showMessageDialog(this, "You've entered incorrect credentials! Try again.");
             throw new InvalidLoginCredentialsException("You've entered incorrect credentials! Try again.");
