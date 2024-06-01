@@ -22,7 +22,6 @@ public class AccountCreationPage extends JFrame {
         usernameLabel = new JLabel("Username:");
         passwordLabel = new JLabel("Password:");
 
-        // Set layout and add components to the panel
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(headLabel);
         panel.add(usernameLabel);
@@ -35,6 +34,7 @@ public class AccountCreationPage extends JFrame {
         setTitle("Account Creation");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(640, 480);
+        setLocationRelativeTo(null);
         setVisible(true);
 
         createAccountButton.addActionListener(new ActionListener() {
