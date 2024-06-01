@@ -1,15 +1,12 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LandingPage extends JFrame {
     private String username;
@@ -120,7 +117,9 @@ public class LandingPage extends JFrame {
                 + "1. Add to Favorites\n"
                 + "2. Add to Read List\n"
                 + "3. Add to Wish List\n"
-                + "4. See Book Details\n";
+                + "4. See Book Details\n"
+                + "5. Add a review\n"
+                + "6. View reviews\n";
 
         String userInput = JOptionPane.showInputDialog(null, optionMessage);
     
@@ -139,6 +138,11 @@ public class LandingPage extends JFrame {
                 case "4":
                     showBookDetails(book);
                     break;
+                case "5":
+                    addReview(username, book.getTitle());
+                    break;
+                case "6":
+                    viewReviews(book.getTitle());
                 default:
                     JOptionPane.showMessageDialog(null, "Invalid option. Please choose a valid option.");
             }
@@ -162,6 +166,42 @@ public class LandingPage extends JFrame {
                 + "Pages: " + book.getPages() + "\n"
                 + "Synopsis: " + book.getSynopsis();
         JOptionPane.showMessageDialog(null, details, "Book Details", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void addReview(String username, String bookTitle) {
+        String reviewInput = JOptionPane.showInputDialog(null,"Leave a review");
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter("reviews.txt", true)))) {
+            writer.write(bookTitle + ";" + username + ";" + reviewInput + "\n");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void viewReviews(String bookTitle) {
+        boolean bookFound = false;
+        DefaultTableModel tableModel = new DefaultTableModel();
+        String[] headers = {"User", "Review"};
+        tableModel.setColumnIdentifiers(headers);
+        File file = new File("reviews.txt");
+        try (Scanner dataReader = new Scanner(file)) {
+            while (dataReader.hasNextLine()) {
+                String currentLine = dataReader.nextLine();
+                String[] lineInfo = currentLine.split(";");
+                String lineBookTitle = lineInfo[0];
+                String lineUsername = lineInfo[1];
+                String lineReview = lineInfo[2];
+                String[] reviewInfo = {lineUsername, lineReview};
+                if (lineBookTitle.equals(bookTitle)){
+                    bookFound = true;
+                    tableModel.addRow(reviewInfo);
+                }
+            }
+            JTable table = new JTable(tableModel);
+            JOptionPane.showMessageDialog(this, new JScrollPane(table));
+            dataReader.nextLine();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getUsername () {
