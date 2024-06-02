@@ -86,7 +86,7 @@ public class ProfilePage extends JFrame {
 
     public void wishToReadList(String username) {
         StringBuilder bookList = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new FileReader("wishToReadBooks.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("wishToreadBooks.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
