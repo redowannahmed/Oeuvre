@@ -23,8 +23,15 @@ public class ProfilePage extends JFrame {
 
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton homePage = new JButton("Home");
+        JButton logOut = new JButton("Logout");
+        logOut.setPreferredSize(new Dimension(100, 40));
         homePage.setPreferredSize(new Dimension(100, 40));
         rightPanel.add(homePage);
+        rightPanel.add(logOut);
+        logOut.addActionListener(e -> {
+            dispose();
+            new LoginPage();
+        });
         homePage.addActionListener(e -> {
             dispose();
             new LandingPage(username);
