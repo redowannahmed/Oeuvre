@@ -1,4 +1,4 @@
-No longer Human;Osamu Dazai;FICTION;random;1st edition;100;ahfuab ajfau;thumbnails\41alKvN9GwL._AC_UF1000,1000_QL80_.jpg
+No longer Human;Osamu Dazai;FICTION;random;1st edition;100;ahfuab ajfau;thumbnails/41alKvN9GwL._AC_UF1000,1000_QL80_.jpg
 Sherlock Holmes;arthur conan Doyle;FICTION;random;1st;190;afna;thumbnails/71L+uX1kjeL._AC_UF894,1000_QL80_.jpg
 The Metamorphosis;Franz Kafka;FICTION;random;idl;100;yo;thumbnails/51usW3qgS2L._AC_UF894,1000_QL80_.jpg
 Norwegian Wood;Haruki Murakami;FICTION;random;sj;11;tada;thumbnails/81RARTnoWjL._AC_UF1000,1000_QL80_.jpg
