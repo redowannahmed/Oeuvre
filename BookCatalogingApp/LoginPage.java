@@ -68,9 +68,12 @@ public class LoginPage extends JFrame {
             while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
                 String[] data = line.split(";");
-                String fileUsername = data[0];
-                String filePassword = data[1];
-
+                String fileUsername = "";
+                String filePassword = "";
+                if (data.length == 2) {
+                    fileUsername = data[0];
+                    filePassword = data[1];
+                }
                 if (fileUsername.equals(username) && filePassword.equals(password)) {
                     JOptionPane.showMessageDialog(this, "You've successfully logged in!");
                     dispose();
