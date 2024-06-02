@@ -143,6 +143,7 @@ public class LandingPage extends JFrame {
                     break;
                 case "6":
                     viewReviews(book.getTitle());
+                    break;
                 default:
                     JOptionPane.showMessageDialog(null, "Invalid option. Please choose a valid option.");
             }
@@ -212,7 +213,6 @@ public class LandingPage extends JFrame {
             }
             JTable table = new JTable(tableModel);
             JOptionPane.showMessageDialog(this, new JScrollPane(table));
-            dataReader.nextLine();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
