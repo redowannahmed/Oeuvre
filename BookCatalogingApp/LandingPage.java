@@ -196,9 +196,14 @@ public class LandingPage extends JFrame {
             while (dataReader.hasNextLine()) {
                 String currentLine = dataReader.nextLine();
                 String[] lineInfo = currentLine.split(";");
-                String lineBookTitle = lineInfo[0];
-                String lineUsername = lineInfo[1];
-                String lineReview = lineInfo[2];
+                String lineBookTitle = "";
+                String lineUsername = "";
+                String lineReview = "";
+                if (lineInfo.length == 3) {
+                    lineBookTitle = lineInfo[0];
+                    lineUsername = lineInfo[1];
+                    lineReview = lineInfo[2];
+                }
                 String[] reviewInfo = {lineUsername, lineReview};
                 if (lineBookTitle.equals(bookTitle)){
                     bookFound = true;
