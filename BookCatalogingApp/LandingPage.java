@@ -163,9 +163,18 @@ public class LandingPage extends JFrame {
                 + "Genre: " + book.getGenre() + "\n"
                 + "Publisher: " + book.getPublisher() + "\n"
                 + "Edition: " + book.getEdition() + "\n"
-                + "Pages: " + book.getPages() + "\n"
+                + "Pages: " + book.getPages() + "\n\n"
                 + "Synopsis: " + book.getSynopsis();
-        JOptionPane.showMessageDialog(null, details, "Book Details", JOptionPane.INFORMATION_MESSAGE);
+    
+        JTextArea textArea = new JTextArea(details);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+    
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(400, 300)); 
+    
+        JOptionPane.showMessageDialog(null, scrollPane, "Book Details", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void addReview(String username, String bookTitle) {
