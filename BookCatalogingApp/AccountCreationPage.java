@@ -56,12 +56,15 @@ public class AccountCreationPage extends JFrame {
         char[] passwordCharArray = passwordField.getPassword();
         String password = new String(passwordCharArray);
         File file = new File("users.txt");
-        
+
         try (Scanner dataReader = new Scanner(file)) {
             while (dataReader.hasNextLine()) {
                 String line = dataReader.nextLine();
                 String[] data = line.split(";");
-                String fileUsername = data[0];
+                String fileUsername = "";
+                if (data.length == 2) {
+                    fileUsername = data[0];
+                }
                 if (fileUsername.equals(username)) {
                     throw new UsernameAlreadyExistsException("This username already exists!");
                 }
